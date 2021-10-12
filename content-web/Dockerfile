@@ -1,6 +1,7 @@
 FROM node:dubnium-alpine AS base
 RUN apk -U add curl
 WORKDIR /usr/src/app
+ENV CONTENT_API_URL http://localhost:3001
 EXPOSE 3000
 
 FROM node:dubnium AS build
@@ -14,7 +15,7 @@ RUN npm install
 
 # Bundle app source
 COPY . /usr/src/app
-RUN ng build 
+RUN ng build
 
 FROM base as final
 WORKDIR /usr/src/app
